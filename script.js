@@ -41,6 +41,13 @@ function DecideWinner(computerA,playerA){
     {
         return("computer")
     }
+    else if(computerA == "scissors" && playerA == "paper")
+    {
+        return("computer")
+    }
+    else{
+        return("player")
+    }
 }
-DecideWinner("rock","scissors")
+console.log(DecideWinner("rock","paper"))
 //game
