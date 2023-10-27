@@ -4,7 +4,6 @@ function getComputersAnswer(){
     let randomNumber = Math.floor(Math.random() * 3)
     return(answers[randomNumber])
 }
-console.log(getComputersAnswer())
 //get players answer
 function getPlayersAnswer(){
     while(true)
@@ -49,5 +48,35 @@ function DecideWinner(computerA,playerA){
         return("player")
     }
 }
-console.log(DecideWinner("rock","paper"))
 //game
+function playGame(){
+    let playerScore = 0
+    let computerScore = 0
+    while(playerScore < 5 && computerScore < 5)
+    {
+        let result = DecideWinner(getComputersAnswer(),getPlayersAnswer())
+        if(result == "computer")
+        {
+            console.log("computer wins")
+            computerScore++
+        }
+        else if(result == "player")
+        {
+            console.log("player wins")
+            playerScore++
+        }
+        else{
+            console.log("draw")
+        }
+        console.log(`players score is ${playerScore} and computers score is ${computerScore}`)
+    }
+    if (playerScore > computerScore)
+    {
+        console.log("player wins!")
+    }
+    else
+    {
+        console.log("computer wins")
+    }
+}
+playGame()
