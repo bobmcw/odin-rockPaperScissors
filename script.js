@@ -1,33 +1,24 @@
+const rockButton = document.querySelector("button.rock")
+const paperButton = document.querySelector("button.paper")
+const scissorsButton = document.querySelector("button.scissors")
+const score = document.querySelector("div.score")
+const playerAnswer = document.querySelector("p.playersAnswer")
+const computerAnswer = document.querySelector("p.computersAnswer")
+const winner = document.querySelector("div.winner")
+
+rockButton.addEventListener('click',() => playGame("rock"))
+paperButton.addEventListener('click',() => playGame("paper"))
+scissorsButton.addEventListener('click',() => playGame("scissors"))
+
+
 let answers = ['rock','paper','scissors']
 //generate computers answer
 function getComputersAnswer(){
     let randomNumber = Math.floor(Math.random() * 3)
     return(answers[randomNumber])
 }
-//get players answer
-function getPlayersAnswer(){
-    while(true)
-    {
-        let playersAnswer = prompt("what do you pick (rock,paper,scissors)")
-
-        if(answers.includes(playersAnswer.toLowerCase()))
-        {
-            return(playersAnswer.toLowerCase())
-        }
-        else
-        {
-            console.log("you did not pick a valid option")
-            
-        }
-    }
-
-}
-// console.log(getPlayersAnswer())
-
 //decide the winner
 function DecideWinner(computerA,playerA){
-    console.log(`computers answer is ${computerA}`)
-    console.log(`players answer is ${playerA}`)
 
     if (computerA == playerA)
     {
@@ -49,34 +40,42 @@ function DecideWinner(computerA,playerA){
     }
 }
 //game
-function playGame(){
-    let playerScore = 0
-    let computerScore = 0
-    while(playerScore < 5 && computerScore < 5)
-    {
-        let result = DecideWinner(getComputersAnswer(),getPlayersAnswer())
+let playerScore = 0
+let computerScore = 0
+
+function updateUI(computersA,playersA,result){
+    score.textContent = `Player: ${playerScore} Computer: ${computerScore}`
+    playerAnswer.textContent = `players answer: ${playersA}`
+    computerAnswer.textContent = `computers answer: ${computersA}`
+    winner.textContent = `winner is: ${result}`
+}
+function playGame(playersA){
+        let currentComputerAnswer = getComputersAnswer()
+        let result = DecideWinner(currentComputerAnswer,playersA)
         if(result == "computer")
         {
-            console.log("computer wins")
             computerScore++
         }
         else if(result == "player")
         {
-            console.log("player wins")
             playerScore++
         }
         else{
-            console.log("draw")
         }
-        console.log(`players score is ${playerScore} and computers score is ${computerScore}`)
-    }
-    if (playerScore > computerScore)
-    {
-        console.log("player wins!")
-    }
-    else
-    {
-        console.log("computer wins")
-    }
+        updateUI(currentComputerAnswer,playersA,result)
+        if (playerScore >= 5 || computerScore >= 5)
+        {
+            if(playerScore > computerScore)
+            {
+                alert("player won")
+                location.reload()
+            }
+            else
+            {
+                alert("computer won")
+                location.reload()
+            }
+        }
+
 }
-playGame()
+//playGame()
